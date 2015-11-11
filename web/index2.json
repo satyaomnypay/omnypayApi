@@ -878,7 +878,7 @@
                     "POS Transactions"
                 ],
                 "summary": "Apply coupons to Amount",
-                "description": "Apply selected coupons for transaction",
+                "description": "Apply selected rewards for transaction",
                 "operationId": "applyRewardsAtPOS",
                 "produces": [
                     "application/xml",
@@ -895,8 +895,8 @@
                     },
                     {
                         "in": "body",
-                        "name": "couponsToRedeem",
-                        "description": "Apply coupons for a user",
+                        "name": "rewardsToRedeem",
+                        "description": "Apply rewards for a user",
                         "required": true,
                         "schema": {
                             "type": "array",
@@ -930,8 +930,8 @@
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Apply coupons to Amount",
-                "description": "Apply selected coupons for transaction",
+                "summary": "Post Payment Token to POS ",
+                "description": "Apply payment token for transaction",
                 "operationId": "sendPayToken",
                 "produces": [
                     "application/xml",
@@ -983,7 +983,7 @@
                     "Mobile Transactions"
                 ],
                 "summary": "Get Coupons for User",
-                "description": "Fetch a list of coupons for this transaction.",
+                "description": "Fetch a list of coupons for this user.",
                 "operationId": "getCoupons",
                 "produces": [
                     "application/xml",
@@ -1028,8 +1028,8 @@
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Get Coupons for User",
-                "description": "Fetch a list of coupons for this transaction.",
+                "summary": "Get Rewards for User",
+                "description": "Fetch a list of rewards for this transaction.",
                 "operationId": "getRewards",
                 "produces": [
                     "application/xml",
