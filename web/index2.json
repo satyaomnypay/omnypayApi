@@ -776,8 +776,8 @@
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Post event adding a single item",
-                "description": "Post event adding a single item into cart.",
+                "summary": "Submit event adding a single item to OmnyPay Platform",
+                "description": "Submit event adding a single item into cart.",
                 "consumes": [
                     "application/json",
                     "application/xml"
@@ -877,8 +877,8 @@
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Apply coupons to Amount",
-                "description": "Apply selected coupons for transaction",
+                "summary": "Apply Rewards to Amount",
+                "description": "Apply selected rewards for transaction",
                 "operationId": "applyRewardsAtPOS",
                 "produces": [
                     "application/xml",
@@ -983,8 +983,8 @@
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Apply coupons to Amount",
-                "description": "Apply selected coupons for transaction",
+                "summary": "Send Pay Token to POS",
+                "description": "Send token to POS for settlement",
                 "operationId": "sendPayToken",
                 "produces": [
                     "application/xml",
@@ -1126,8 +1126,8 @@
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Get Coupons for User",
-                "description": "Fetch a list of coupons for this transaction.",
+                "summary": "Get Rewards for User",
+                "description": "Fetch  rewards for this user.",
                 "operationId": "getLoyalty",
                 "produces": [
                     "application/xml",
@@ -1276,7 +1276,7 @@
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Apply rewards to Amount",
+                "summary": "Apply Loyalty Points to Amount",
                 "description": "Apply user loyalty for transaction",
                 "operationId": "applyLoyalty",
                 "produces": [
