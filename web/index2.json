@@ -654,12 +654,12 @@
                 ]
             }
         },
-        "/users/{user_id}/AmountsAndLineItems": {
+        "/users/{user_id}/LineItemsAndAmounts": {
             "get": {
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Get Amounts and Line items",
+                "summary": "Get Line items and Amounts",
                 "description": "Called by Mobile App to get line items and total amount from OmnyPay Platform",
                 "consumes": [
                     "application/json",
@@ -688,13 +688,12 @@
                 }
             }
         },
-        "/POS/{pos_id}/postAmountAndLineItems": {
+        "/POS/{pos_id}/postLineItemsAndAmounts": {
             "post": {
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Submit amount and Line Items from POS",
-                "description": "This call submits line items and amount for transaction payment.",
+                "summary": "Submit Line Items and Amounts from POS", "description": "This call submits line items and amount for transaction payment.",
                 "consumes": [
                     "application/json",
                     "application/xml"
@@ -846,7 +845,7 @@
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Get Loyalty Rewards and Offers for User",
+                "summary": "Get Loyalty, Rewards and Offers for User",
                 "description": "Fetch a list of loyalty, rewards and offers associated with the user.",
                 "operationId": "getLRO",
                 "produces": [
@@ -892,7 +891,7 @@
                 "tags": [
                     "Mobile Transactions"
                 ],
-                "summary": "Apply selected Loyalty Rewards and Offers to Amount for transaction at POS",
+                "summary": "Apply selected Loyalty, Rewards and Offers to Amount for transaction at POS",
                 "description": "Apply selected rewards, loyalty points and coupons  for transaction",
                 "operationId": "applyLRO",
                 "produces": [
