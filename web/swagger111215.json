@@ -1,0 +1,2124 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "OmnyPay is a Retailer friendly white label mobile payment system that enables shoppers pay retailer across omnichannels and omni devices. OmnyPay version 2.0 API supports a retailer mobile or web commerce application to connect to Omnypay Cloud Payment Service.   If you are interested in hearing more about Omnypay, please contact info@omnypay.net. \n* OmnyPay is our integrated, customizable, and secure mobile payment and loyalty platform works with a retailer to reward their loyal customers, lower payment transaction costs, and increase sales. OmnyPay is a retailer friendly, mobile payment system designed with the retailer in mind. Works seamlessly across all channels NFC equipped stores, non-NFC stores, e-Commerce sites, and native mobile apps.\nSupports all payment types such as store card, private label credit cards, debit cards, credit cards, and ACH.\n* OmnyPay provides these easy APIs to speed up development. A credential is included for quick development and integration testing. Use following key, rpw6tm0awkz-u06o0lmabgcmlik2hjb9 for testing.\n \nTerminology\n\n\n* Retailer - Any retailer that has a brick and mortar or ecommerce store can avail of OmnyPay service. For our example we will call our retailer CoolStore.\n\n\n* Retailer Mobile App - the branded mobile application available  in Apple App Store or Android Play store. For our example Cool Store has a branded mobile app - CoolStore App \n\n\n* Customer - A shopper of CoolStore Store or eCommerce sites. \n\n\n* CoolPay - A mobile payment service that uses OmnyPay payment system to seamlessly integrate customer loyalty, rewards and promotions across multiple channels and steer shoppers to use Store Cards.\n\nOur Interfaces  \n   Retailer Systems <-POS API->Omnypay Platform<-Mobile API-> Retailer Mobile App \n* Retailer Systems - The Commerce systems in the backend and the Point of Service systems that enable transactions in-store and on commerce sites. \n* POS API - Set of API between OmnyPay Platform and Retailer Systems. \n* OmnyPay Platform - A REST based API and platform that supports Mobile Payment for Retailers using their branded applications.\n* OmnyPay Mobile API -  consists of User Management API and Mobile transactions API. \n* Retailer Mobile App - The branded application used by shoppers on their mobile phone ex: Coolstore App\n",
+        "version": "2.0.0",
+        "title": "OmnyPay API - Powering OmniChannel Retailers",
+        "termsOfService": "http://omnypay.net/api/terms.html",
+        "contact": {
+            "email": "info@omnypay.net"
+        },
+        "license": {
+            "name": "Omnypay License",
+            "url": "http://omnypay.net/licenses/LICENSE.html"
+        }
+    },
+    "host": "staging.omnypay.net",
+    "basePath": "/v2",
+    "tags": [
+        {
+            "name": "User Management",
+            "description": "User management API for those retail customers who want to use Omnypay for user account and profile managemen including user registration, setup features, adding payment instruments.",
+            "externalDocs": {
+                "description": "API for mobile app to support user management in Omnypay",
+                "url": "http://omnypay.net"
+            }
+        },
+        {
+            "name": "Mobile Transactions",
+            "description": "Mobile side API, for transaction processing while shopping between mobile app or eCommerce app and OmnyPay Cloud."
+        },
+        {
+            "name": "POS Transactions",
+            "description": "POS side APIs, for transaction processing while shopping, between Retailer POS and OmnyPay Cloud.",
+            "externalDocs": {
+                "description": "Find out more about OmnyPay",
+                "url": "http://omnypay.net"
+            }
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/user/": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Add a new user to OmnyPay",
+                "description": "",
+                "operationId": "addUser",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "appUserProfile",
+                        "description": "User Info required for authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appUserProfile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appUserRegisterResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Update an existing user profile",
+                "description": "",
+                "operationId": "updateUserInfo",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Update an existing user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appChangeUserProfile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appUserRegisterResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid password supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/card": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Add a Card",
+                "description": "Adds a credit, debit, store or gift card to user account.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "status",
+                        "description": "Info about card",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appCardInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appCRef"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Card Data"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/user/logout": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Logout a user from OmnyPay",
+                "description": "Logout of a Omnypay session",
+                "operationId": "logout",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Info required for authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appUserProfile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "User not logged in"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Login a user to OmnyPay",
+                "description": "Login  a user for Omnypay session",
+                "operationId": "login",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Info required for authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appUserProfile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appUserRegisterResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "User not logged in"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/Questions": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Set Security Questions",
+                "description": "Select order of security questions and set answers to each question.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "profileAndQuestions",
+                        "description": "User Authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appProfileAndQuestions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    },
+                    {
+                        "omnypay_auth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Set Security Questions",
+                "description": "Select order of security questions and set answers to each question.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "profileAndQuestions",
+                        "description": "User Authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appProfileAndQuestions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    },
+                    {
+                        "omnypay_auth": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Get Security Questions",
+                "description": "Get atleast two security questions for user verification",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appAskQuestions"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    },
+                    {
+                        "omnypay_auth": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/answerQuestions": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Answer Security Questions",
+                "description": "Answer two security questions for user verification",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Validation",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appAnswerQuestions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    },
+                    {
+                        "omnypay_auth": []
+                    }
+                ]
+            }
+        },
+        "/password/forgot": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Forgot Password, get questions to answer",
+                "description": "Forgot Password, get answers for two questions asked",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appAskQuestions"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/bankAcct": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Add a Bank Account",
+                "description": "Adds a bank account, savings or checking to user account.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add Bank Info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appBankInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appCRef"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Delete a Account",
+                "description": "Deletes a bank, debit, credit, gift or store card account",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add Bank Info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appCRef"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/checkin": {
+            "post": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Check in the user",
+                "description": "User checks into the POS",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "POS Info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appPOSInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appCheckInResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    },
+                    {
+                        "clientstore_auth": []
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/AmountsAndLineItems": {
+            "get": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Get Total Amount",
+                "description": "Called by Mobile App to get total amount",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that is due the amount",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/LineItems": {
+            "get": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Get Line Items",
+                "description": "Called by Mobile App to get line Items scanned so far",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that is due the amount",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/Purchase"
+                        }
+                    }
+                }
+            }
+        },
+        "/POS/{pos_id}/postAmount": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Get amount from POS",
+                "description": "Get amount for transaction payment.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pos_id",
+                        "description": "ID of POS that is posting Amount due",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "amt",
+                        "description": "POS Info",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/POS/{pos_id}/postItem": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Submit event adding a single item to OmnyPay Platform",
+                "description": "Submit event adding a single item into cart.",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pos_id",
+                        "description": "ID of pos",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "lineItem",
+                        "description": "lineItem purchased",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Purchase"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/POS/{pos_id}/applyOffers": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Apply coupons to Amount",
+                "description": "Apply selected coupons for transaction",
+                "operationId": "applyCouponsAtPOS",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of POS that needs to be fetched",
+                        "name": "pos_id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "couponsToRedeem",
+                        "description": "Apply coupons for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/Coupon"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/POS/{pos_id}/applyRewards": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Apply Rewards to Amount",
+                "description": "Apply selected rewards for transaction",
+                "operationId": "applyRewardsAtPOS",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of POS that needs to be fetched",
+                        "name": "pos_id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "couponsToRedeem",
+                        "description": "Apply coupons for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/RewardRedemption"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/POS/{pos_id}/applyLoyalty": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Apply loyalty to Amount",
+                "description": "Apply selected coupons for transaction",
+                "operationId": "applyLoyaltyAtPOS",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of POS that needs to be fetched",
+                        "name": "pos_id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "couponsToRedeem",
+                        "description": "Apply coupons for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/LoyaltyRedemption"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/POS/{pos_id}/payToken": {
+            "post": {
+                "tags": [
+                    "POS Transactions"
+                ],
+                "summary": "Send Pay Token to POS",
+                "description": "Send token to POS for settlement",
+                "operationId": "sendPayToken",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of POS that needs to be fetched",
+                        "name": "pos_id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "AmountWithToken",
+                        "description": "AmountWithToken",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/POSAmountWithToken"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/offers": {
+            "get": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Get Offers for User",
+                "description": "Fetch a list of offers for this transaction.",
+                "operationId": "getOffers",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/Coupon"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user"
+                    },
+                    "405": {
+                        "description": "Not a valid session"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/loyalty": {
+            "get": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Get Loyalty for User",
+                "description": "Fetch a list of coupons for this transaction.",
+                "operationId": "getRewards",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Loyalty"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user"
+                    },
+                    "405": {
+                        "description": "Not a valid session"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/rewards": {
+            "get": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Get Rewards for User",
+                "description": "Fetch  rewards for this user.",
+                "operationId": "getLoyalty",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/Reward"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user"
+                    },
+                    "405": {
+                        "description": "Not a valid session"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/applyOffers": {
+            "post": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Apply offers to Amount",
+                "description": "Apply selected couponss for transaction",
+                "operationId": "applyCoupons",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of user that needs to be fetched",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "couponsToRedeem",
+                        "description": "Apply coupons for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/CouponRedemption"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/applyRewards": {
+            "post": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Apply rewards to Amount",
+                "description": "Apply selected rewards for transaction",
+                "operationId": "applyRewards",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of user that needs to be fetched",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "couponsToRedeem",
+                        "description": "Apply coupons for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/RewardRedemption"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/applyLoyalty": {
+            "post": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "Apply Loyalty Points to Amount",
+                "description": "Apply user loyalty for transaction",
+                "operationId": "applyLoyalty",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of user that needs to be fetched",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "loyaltyToRedeem",
+                        "description": "Apply loyalty points for a user",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/LoyaltyRedemption"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/POSAmountRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid transaction"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/users/{user_id}/confirmPayment": {
+            "post": {
+                "tags": [
+                    "Mobile Transactions"
+                ],
+                "summary": "pay specified Amount for transaction",
+                "description": "Apply selected coupons for transaction",
+                "operationId": "payAmount",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID of user that needs to be fetched",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Pay amount for products purchase",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/appPayAmountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appPayAmountResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Transaction declined"
+                    },
+                    "404": {
+                        "description": "User not recognized"
+                    }
+                },
+                "security": [
+                    {
+                        "clientstore_auth": [
+                            "write:transactions",
+                            "read:transactions"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "clientstore_auth": {
+            "type": "oauth2",
+            "description": "OmnyPay uses OAuth 2.0 to secure access to the cloud. OAuth2 is a protocol that lets external apps request authorization to private details in a user’s GitHub account without getting their password. This is preferred over Basic Authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.\n* All developers need to register their application before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared. You may create a personal access token for your own use or implement the web flow below to allow other users to authorize your application.\n* OmnyPay OAuth implementation supports the standard authorization code grant type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for a token. (The implicit grant type is not supported.)",
+            "authorizationUrl": "https://OmnyPay.net/login/oauth/authorize",
+            "flow": "implicit",
+            "scopes": {
+                "write:transactions": "transact using your account",
+                "read:transactions": "read information about account"
+            }
+        },
+        "api_key": {
+            "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        },
+        "omnypay_auth": {
+            "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "appUserProfile": {
+            "type": "object",
+            "required": [
+                "user_id"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "emailId": {
+                    "type": "string",
+                    "description": "User email address"
+                },
+                "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number beginning with area code"
+                },
+                "user_id": {
+                    "type": "string",
+                    "description": "user Id is a id that uniquely identifies the customer or shopper in retailer's system"
+                },
+                "passcode": {
+                    "type": "string",
+                    "description": "Password atleast 8 digits with a char, number and special characters"
+                }
+            },
+            "xml": {
+                "name": "UserProfile"
+            }
+        },
+        "appChangeUserProfile": {
+            "type": "object",
+            "properties": {
+                "oldEmailId": {
+                    "type": "string",
+                    "description": "Old User email Id"
+                },
+                "newEmailId": {
+                    "type": "string",
+                    "description": "New User email Id"
+                },
+                "oldPhoneNumber": {
+                    "type": "string",
+                    "description": "Old phone number beginning with area code"
+                },
+                "newoldPhoneNumber": {
+                    "type": "string",
+                    "description": "New phone number beginning with area code"
+                },
+                "oldPasscode": {
+                    "type": "string",
+                    "description": "Original Password atleast 8 digits with a char, number and special characters"
+                },
+                "newPasscode": {
+                    "type": "string",
+                    "description": "New Password atleast 8 digits with a char, number and special characters"
+                }
+            },
+            "xml": {
+                "name": "ChangeUserProfile"
+            }
+        },
+        "Reward": {
+            "type": "object",
+            "properties": {
+                "rewardPointTotal": {
+                    "type": "integer"
+                },
+                "rewardId": {
+                    "type": "string"
+                },
+                "merchantId": {
+                    "type": "string"
+                },
+                "validTo": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "Reward"
+            }
+        },
+        "Coupon": {
+            "type": "object",
+            "properties": {
+                "couponId": {
+                    "type": "string"
+                },
+                "skuId": {
+                    "type": "string"
+                },
+                "merchantId": {
+                    "type": "string"
+                },
+                "discountId": {
+                    "type": "string"
+                },
+                "couponTitle": {
+                    "type": "string"
+                },
+                "couponIssuerName": {
+                    "type": "string"
+                },
+                "couponIssuerId": {
+                    "type": "string"
+                },
+                "categoryName": {
+                    "type": "string"
+                },
+                "isValid": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "redemptionsAllowed": {
+                    "type": "integer",
+                    "format": "integer32"
+                },
+                "comboValid": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "discountDollar": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "discountPercent": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "countryCode": {
+                    "type": "string"
+                },
+                "redemptionChannel": {
+                    "type": "string"
+                },
+                "imageAsset": {
+                    "type": "string",
+                    "description": "path of the asset"
+                },
+                "BuyX": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "GetFree": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "validFrom": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "validTo": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "xml": {
+                "name": "Coupon"
+            }
+        },
+        "CouponRedemption": {
+            "type": "object",
+            "properties": {
+                "couponId": {
+                    "type": "string"
+                },
+                "qtyRequested": {
+                    "type": "number",
+                    "format": "integer32"
+                },
+                "redemptionValue": {
+                    "description": "Percent Value or Dollar Value",
+                    "type": "number",
+                    "format": "float"
+                },
+                "redemptionType": {
+                    "description": "0 for percent 1 for amount",
+                    "type": "number",
+                    "format": "integer32"
+                }
+            },
+            "xml": {
+                "name": "CouponRedemption"
+            }
+        },
+        "RewardRedemption": {
+            "type": "object",
+            "properties": {
+                "rewardId": {
+                    "type": "string"
+                },
+                "redemptionValue": {
+                    "description": "Percent Value or Dollar Value",
+                    "type": "number",
+                    "format": "float"
+                },
+                "redemptionType": {
+                    "description": "0 for percent 1 for amount",
+                    "type": "number",
+                    "format": "integer32"
+                }
+            },
+            "xml": {
+                "name": "RewardRedemption"
+            }
+        },
+        "LoyaltyRedemption": {
+            "type": "object",
+            "properties": {
+                "LoyaltyId": {
+                    "type": "string"
+                },
+                "LoyaltyPoints": {
+                    "description": "Points earned",
+                    "type": "number"
+                },
+                "PointConversion": {
+                    "description": "the conversion ratio for points to currency",
+                    "type": "number",
+                    "format": "float"
+                },
+                "PointsRedeemed": {
+                    "description": "the points redeemed for this transaction",
+                    "type": "number",
+                    "format": "float"
+                },
+                "DollarRedeemed": {
+                    "description": "the dollars redeemed for this transaction",
+                    "type": "number",
+                    "format": "integer32"
+                }
+            },
+            "xml": {
+                "name": "LoyaltyRedemption"
+            }
+        },
+        "Loyalty": {
+            "type": "object",
+            "properties": {
+                "LoyaltyId": {
+                    "type": "string"
+                },
+                "LoyaltyName": {
+                    "type": "string",
+                    "description": "Name of the loyalty level"
+                },
+                "LoyaltyPoints": {
+                    "description": "Points earned",
+                    "type": "number"
+                },
+                "PointConversion": {
+                    "description": "the conversion ratio for points to currency",
+                    "type": "number",
+                    "format": "float"
+                }
+            },
+            "xml": {
+                "name": "LoyaltyRedemption"
+            }
+        },
+        "Purchase": {
+            "type": "object",
+            "properties": {
+                "productSKU": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "coupon Discount": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "itemTotal": {
+                    "type": "number",
+                    "format": "float"
+                }
+            },
+            "xml": {
+                "name": "Purchase"
+            }
+        },
+        "POSAmountRequest": {
+            "type": "object",
+            "required": [
+                "totalAmount",
+                "tax"
+            ],
+            "properties": {
+                "totalAmount": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "discountsInDollar": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "tax": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "netAmount": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "itemizedPurchases": {
+                    "type": "array",
+                    "xml": {
+                        "name": "itemizedPurchases",
+                        "wrapped": true
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Purchase"
+                    }
+                }
+            },
+            "xml": {
+                "name": "TransactPOSResponse"
+            }
+        },
+        "appPayAmountRequest": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "cardRef": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "PayPOSAmountRequest"
+            }
+        },
+        "appPayAmountResponse": {
+            "type": "object",
+            "properties": {
+                "paidTotal": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "amountBalance": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "cardBalance": {
+                    "type": "number",
+                    "format": "float"
+                }
+            },
+            "xml": {
+                "name": "PayPOSAmountResponse"
+            }
+        },
+        "appUserRegisterResponse": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "RegisterResponse"
+            }
+        },
+        "appCheckInResponse": {
+            "type": "object",
+            "required": [
+                "transaction_id",
+                "type",
+                "message",
+                "code"
+            ],
+            "properties": {
+                "transaction_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "txnAmount": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "CheckInResponse"
+            }
+        },
+        "appProfileAndQuestions": {
+            "properties": {
+                "phoneNumber": {
+                    "type": "number",
+                    "description": "Phone Number of User"
+                },
+                "emailId": {
+                    "type": "string",
+                    "description": "email address of User"
+                },
+                "questionId1": {
+                    "type": "string",
+                    "description": "secret question No. 1"
+                },
+                "answer1": {
+                    "type": "string",
+                    "description": "answer to secret question No. 1"
+                },
+                "questionId2": {
+                    "type": "string",
+                    "description": "secret question No. 2"
+                },
+                "answer2": {
+                    "type": "string",
+                    "description": "answer to secret question No. 2"
+                },
+                "questionId3": {
+                    "type": "string",
+                    "description": "secret question No. 3"
+                },
+                "answer3": {
+                    "type": "string",
+                    "description": "answer to secret question No. 3"
+                },
+                "questionId4": {
+                    "type": "string",
+                    "description": "secret question No. 4"
+                },
+                "answer4": {
+                    "type": "string",
+                    "description": "answer to secret question No. 5"
+                },
+                "questionId5": {
+                    "type": "string",
+                    "description": "secret question No. 5"
+                }
+            },
+            "xml": {
+                "name": "ProfileAndQuestions"
+            }
+        },
+        "appAskQuestions": {
+            "properties": {
+                "questionId1": {
+                    "type": "string",
+                    "description": "secret question No. 1"
+                },
+                "questionId2": {
+                    "type": "string",
+                    "description": "secret question No. 2"
+                },
+                "questionId3": {
+                    "type": "string",
+                    "description": "secret question No. 3"
+                },
+                "questionId4": {
+                    "type": "string",
+                    "description": "secret question No. 4"
+                }
+            },
+            "xml": {
+                "name": "appAnsQuestions"
+            }
+        },
+        "appAnswerQuestions": {
+            "properties": {
+                "questionId1": {
+                    "type": "string",
+                    "description": "secret question No. 1"
+                },
+                "answer1": {
+                    "type": "string",
+                    "description": "answer secret question No. 1"
+                },
+                "questionId2": {
+                    "type": "string",
+                    "description": "secret question No. 2"
+                },
+                "answer2": {
+                    "type": "string",
+                    "description": "answer secret question No. 2"
+                },
+                "questionId3": {
+                    "type": "string",
+                    "description": "secret question No. 3"
+                },
+                "answer3": {
+                    "type": "string",
+                    "description": "answer secret question No. 3"
+                },
+                "questionId4": {
+                    "type": "string",
+                    "description": "secret question No. 4"
+                },
+                "answer4": {
+                    "type": "string",
+                    "description": "answer secret question No. 3"
+                }
+            },
+            "xml": {
+                "name": "appAnsQuestions"
+            }
+        },
+        "appCardInfo": {
+            "properties": {
+                "accType": {
+                    "type": "integer",
+                    "description": "0 for charge card, 1 for type of acct. MC/Visa/ 2 for Gift card"
+                },
+                "accNickName": {
+                    "type": "string",
+                    "description": "ex:\"Citi MASTERCARD\","
+                },
+                "acctHolderName": {
+                    "type": "string",
+                    "description": "Name of the card holder"
+                },
+                "accCardVfcCode": {
+                    "type": "string",
+                    "description": "Code at the back of card"
+                },
+                "cardNickName": {
+                    "type": "string",
+                    "description": "Nickname of the card holder"
+                },
+                "acctCardExpDate": {
+                    "type": "string",
+                    "description": "The month ex:\"04\" of expiry"
+                },
+                "acctCardExpYear": {
+                    "type": "string",
+                    "description": "The year ex:\"17\" of expiry"
+                },
+                "acctNo": {
+                    "type": "string",
+                    "description": "The acct number of the card holder"
+                },
+                "phoneNumber": {
+                    "type": "number",
+                    "description": "Phone Number of User"
+                },
+                "emailId": {
+                    "type": "string",
+                    "description": "email address of User"
+                }
+            },
+            "xml": {
+                "name": "CardInfo"
+            }
+        },
+        "appBankInfo": {
+            "properties": {
+                "accType": {
+                    "type": "integer",
+                    "description": "ex:0 for bank"
+                },
+                "accBankType": {
+                    "type": "string",
+                    "description": "ex:Savings or Checking"
+                },
+                "accBankName": {
+                    "type": "string",
+                    "description": "ex:\"Citi\","
+                },
+                "acctHolderName": {
+                    "type": "string",
+                    "description": "Name of the bank acct holder"
+                },
+                "accBankRout": {
+                    "type": "string",
+                    "description": "Routing Number of Bank Acct"
+                },
+                "accZipcode": {
+                    "type": "string",
+                    "description": "zipcode of bank"
+                },
+                "accCity": {
+                    "type": "string",
+                    "description": "The city where bank is registered"
+                },
+                "accState": {
+                    "type": "string",
+                    "description": "The state where bank is registered"
+                },
+                "accStreet": {
+                    "type": "string",
+                    "description": "The street where bank is registered"
+                },
+                "acctNo": {
+                    "type": "string",
+                    "description": "The acct number of the card holder"
+                },
+                "imeiNo": {
+                    "type": "string",
+                    "description": "IMEI Number of User"
+                },
+                "phoneNumber": {
+                    "type": "number",
+                    "description": "Phone Number of User"
+                },
+                "emailId": {
+                    "type": "string",
+                    "description": "email address of User"
+                }
+            },
+            "xml": {
+                "name": "BankInfo"
+            }
+        },
+        "appCRef": {
+            "properties": {
+                "accNickName": {
+                    "type": "string",
+                    "description": "nickname of the card or bank acct"
+                },
+                "token": {
+                    "type": "array",
+                    "description": "The tokens associated",
+                    "$ref": "#/definitions/appCardTokens"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "CRefResponse"
+            }
+        },
+        "appCardTokens": {
+            "properties": {
+                "tokenName": {
+                    "type": "string"
+                },
+                "tokenValue": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "CardTokens"
+            }
+        },
+        "appPOSInfo": {
+            "properties": {
+                "POSId": {
+                    "type": "string",
+                    "description": "The POS ID (ex:4554) or the IP address/Page Id(\"127.0.0.1;7204889ADA49DD30520E3B8766D1F980fftQ3\") from QR Code scanned"
+                },
+                "StoreId": {
+                    "type": "string",
+                    "description": "The store Id"
+                },
+                "CheckSum": {
+                    "type": "string",
+                    "description": "Unique checksum"
+                }
+            },
+            "xml": {
+                "name": "POSInfo"
+            }
+        },
+        "POSAmountWithToken": {
+            "properties": {
+                "Total": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "Token": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "posAmountToken"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about OmnyPay",
+        "url": "http://OmnyPay.net"
+    }
+}
