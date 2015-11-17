@@ -273,6 +273,51 @@
                 ]
             }
         },
+        "/user/register": {
+            "post": {
+                "tags": [
+                    "User Management"
+                ],
+                "summary": "Register a Merchant User Id(like CoolStore Id) in OmnyPay",
+                "description": "When registering first time a Merchant user id, OmnyPay will create an OmnyPay user object and return a mapped user_id. If a merchant user Id is already provisioned then it will return the internal user Id and any card Reference associated with the user_id",
+                "operationId": "register",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Info required for authentication",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appMUserIdProfile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/appUserRegisterResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "User not logged in"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
         "/users/{user_id}/Questions": {
             "post": {
                 "tags": [
@@ -1056,6 +1101,38 @@
                 "name": "UserProfile"
             }
         },
+        "appMUserIdProfile": {
+            "type": "object",
+            "required": [
+                "MUser_id"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "emailId": {
+                    "type": "string",
+                    "description": "User email address"
+                },
+                "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number beginning with area code"
+                },
+                "MUserid": {
+                    "type": "string",
+                    "description": "user Id is a id that uniquely identifies the customer or shopper in retailer's system"
+                }
+            },
+            "xml": {
+                "name": "MUserIdProfile"
+            }
+        },
         "appChangeUserProfile": {
             "type": "object",
             "properties": {
@@ -1430,6 +1507,16 @@
             "properties": {
                 "user_id": {
                     "type": "string"
+                },
+                "cards": {
+                    "type": "array",
+                    "xml": {
+                        "name": "cards",
+                        "wrapped": true
+                    },
+                    "items": {
+                        "$ref": "#/definitions/appCRef"
+                    }
                 },
                 "type": {
                     "type": "string"
