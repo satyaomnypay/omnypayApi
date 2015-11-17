@@ -693,8 +693,7 @@
                 "tags": [
                     "POS Transactions"
                 ],
-                "summary": "Submit Line Items and Amounts from POS",
-                "description": "This call submits line items and amount for transaction payment.",
+                "summary": "Submit Line Items and Amounts from POS", "description": "This call submits line items and amount for transaction payment.",
                 "consumes": [
                     "application/json",
                     "application/xml"
@@ -865,6 +864,7 @@
                 "responses": {
                     "200": {
                         "description": "successful operation",
+                        "type": "object",
                         "schema": {
                             "$ref": "#/definitions/LRO"
                         }
@@ -1290,7 +1290,10 @@
             "type": "object",
             "properties": {
                 "loyalty": {
-                    "$ref": "#/definitions/Loyalty"
+                    "type": "object",
+                    "schema": {
+                        "$ref": "#/definitions/Loyalty"
+                    }
                 },
                 "rewards": {
                     "type": "array",
@@ -1370,10 +1373,6 @@
                 "netAmount": {
                     "type": "number",
                     "format": "float"
-                },
-                "readyForPayment": {
-                    "type": "boolean",
-                    "description": "this flag is set if the associate is ready to accept payment"
                 },
                 "itemizedPurchases": {
                     "type": "array",
