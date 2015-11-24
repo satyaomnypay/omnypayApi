@@ -13,8 +13,8 @@
             "url": "http://omnypay.net/licenses/LICENSE.html"
         }
     },
-    "host": "121.244.157.170:8777",
-    "basePath": "/mobileApp/rest/",
+    "host": "staging.omnypay.net",
+    "basePath": "/v2",
     "tags": [
         {
             "name": "User Management",
@@ -958,7 +958,7 @@
                         "required": true,
                         "schema": {
                             "type": "array",
-                            "$ref": "#/definitions/LRO"
+                            "$ref": "#/definitions/LoyaltyRedemption"
                         }
                     }
                 ],
@@ -1104,7 +1104,7 @@
         "appMUserIdProfile": {
             "type": "object",
             "required": [
-                "MUserid"
+                "MUser_id"
             ],
             "properties": {
                 "username": {
@@ -1242,11 +1242,11 @@
                     "type": "string",
                     "description": "path of the asset"
                 },
-                "buyX": {
+                "BuyX": {
                     "type": "number",
                     "format": "float"
                 },
-                "getFree": {
+                "GetFree": {
                     "type": "integer",
                     "format": "int32"
                 },
@@ -1312,24 +1312,24 @@
         "LoyaltyRedemption": {
             "type": "object",
             "properties": {
-                "loyaltyId": {
+                "LoyaltyId": {
                     "type": "string"
                 },
-                "loyaltyPoints": {
+                "LoyaltyPoints": {
                     "description": "Points earned",
                     "type": "number"
                 },
-                "pointConversion": {
+                "PointConversion": {
                     "description": "the conversion ratio for points to currency",
                     "type": "number",
                     "format": "float"
                 },
-                "pointsRedeemed": {
+                "PointsRedeemed": {
                     "description": "the points redeemed for this transaction",
                     "type": "number",
                     "format": "float"
                 },
-                "dollarRedeemed": {
+                "DollarRedeemed": {
                     "description": "the dollars redeemed for this transaction",
                     "type": "number",
                     "format": "integer32"
@@ -1342,18 +1342,18 @@
         "Loyalty": {
             "type": "object",
             "properties": {
-                "loyaltyId": {
+                "LoyaltyId": {
                     "type": "string"
                 },
-                "loyaltyName": {
+                "LoyaltyName": {
                     "type": "string",
                     "description": "Name of the loyalty level"
                 },
-                "loyaltyPoints": {
+                "LoyaltyPoints": {
                     "description": "Points earned",
                     "type": "number"
                 },
-                "pointConversion": {
+                "PointConversion": {
                     "description": "the conversion ratio for points to currency",
                     "type": "number",
                     "format": "float"
@@ -1412,7 +1412,7 @@
                     "type": "number",
                     "format": "float"
                 },
-                "couponDiscount": {
+                "coupon Discount": {
                     "type": "number",
                     "format": "float"
                 },
@@ -1784,10 +1784,6 @@
         },
         "appCRef": {
             "properties": {
-                "tokenExpDate": {
-                    "type": "string",
-                    "description": "expiration date of the token in token array"
-                },
                 "accNickName": {
                     "type": "string",
                     "description": "nickname of the card or bank acct"
@@ -1796,14 +1792,6 @@
                     "type": "array",
                     "description": "The tokens associated",
                     "$ref": "#/definitions/appCardTokens"
-                },
-                "udk": {
-                    "type": "string",
-                    "description": "the user defined key to encrypt"
-                },
-                "isFirstAcct": {
-                    "type": "boolean",
-                    "description": "flag to indicate if this is the first card"
                 },
                 "code": {
                     "type": "string"
@@ -1822,8 +1810,7 @@
         "appCardTokens": {
             "properties": {
                 "tokenName": {
-                    "type": "string",
-                    "description": "the name of the token"
+                    "type": "string"
                 },
                 "tokenValue": {
                     "type": "string"
