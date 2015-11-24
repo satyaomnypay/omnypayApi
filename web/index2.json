@@ -14,7 +14,7 @@
         }
     },
     "host": "121.244.157.170:8777",
-    "basePath": "/mobileApp/rest/",
+    "basePath": "/mobileApp/rest",
     "tags": [
         {
             "name": "User Management",
@@ -38,7 +38,7 @@
         }
     ],
     "schemes": [
-        "https"
+        "http"
     ],
     "paths": {
         "/user/": {
