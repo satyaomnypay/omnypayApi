@@ -1,0 +1,5 @@
+curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "api-key: 1upqbzm8zgi80rwuc9n34vsofsis3vs-" -d "{
+  \"passcode\":\"Tarang@01\",
+ \"MUserId\":\"12345688888999\",
+
+}" "http://121.244.157.170:8777/mobileApp/rest/user/register"

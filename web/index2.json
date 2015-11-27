@@ -1092,27 +1092,10 @@
         "appUserProfile": {
             "type": "object",
             "required": [
-                "user_id"
+                "UserId"
             ],
             "properties": {
-                "username": {
-                    "type": "string"
-                },
-                "firstName": {
-                    "type": "string"
-                },
-                "lastName": {
-                    "type": "string"
-                },
-                "emailId": {
-                    "type": "string",
-                    "description": "User email address"
-                },
-                "phoneNumber": {
-                    "type": "string",
-                    "description": "Phone number beginning with area code"
-                },
-                "user_id": {
+                "UserId": {
                     "type": "string",
                     "description": "user Id is a id that uniquely identifies the customer or shopper in retailer's system"
                 },
