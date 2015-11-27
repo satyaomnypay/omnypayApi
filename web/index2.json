@@ -257,17 +257,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "successful  operation",
                         "schema": {
                             "$ref": "#/definitions/appUserRegisterResponse"
                         }
-                    {
-                        "in": "header",
-                        "name": "api-key",
-			"default":"1upqbzm8zgi80rwuc9n34vsofsis3vs-",
-                        "required": true,
-                        "type": "string"
-                    },
                     },
                     "400": {
                         "description": "User not logged in"
