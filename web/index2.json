@@ -246,6 +246,14 @@
                 ],
                 "parameters": [
                     {
+                        "in": "header",
+			"default":"1upqbzm8zgi80rwuc9n34vsofsis3vs-",
+                        "name": "api-key",
+                        "description": "API id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "in": "body",
                         "name": "body",
                         "description": "User Info required for authentication",
