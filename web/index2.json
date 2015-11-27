@@ -1053,7 +1053,7 @@
         },
         "api-key": {
             "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
-            "type": "string",
+            "type": "apiKey",
             "name": "api-key",
             "in": "header"
         },
