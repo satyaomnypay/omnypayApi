@@ -268,7 +268,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": "1upqbzm8zgi80rwuc9n34vsofsis3vs-"
                     }
                 ]
             }
@@ -313,7 +313,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -361,7 +361,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -410,7 +410,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -453,7 +453,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -505,7 +505,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -541,7 +541,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -593,7 +593,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             },
@@ -640,7 +640,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -691,7 +691,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "clientstore_auth": []
@@ -776,7 +776,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -1051,10 +1051,10 @@
                 "read:transactions": "read information about account"
             }
         },
-        "api_key": {
+        "api-key": {
             "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
             "type": "apiKey",
-            "name": "api_key",
+            "name": "api-key",
             "in": "header"
         },
         "omnypay_auth": {
