@@ -14,7 +14,7 @@
         }
     },
     "host": "121.244.157.170:8777",
-    "basePath": "/mobileApp/rest/",
+    "basePath": "/mobileApp/rest",
     "tags": [
         {
             "name": "User Management",
@@ -38,7 +38,7 @@
         }
     ],
     "schemes": [
-        "https"
+        "http"
     ],
     "paths": {
         "/user/": {
@@ -268,10 +268,7 @@
                 },
                 "security": [
                     {
-                        "api_key": "1upqbzm8zgi80rwuc9n34vsofsis3vs-"
-                    },
-                    {
-                        "oauth-token": "kdajkdljsk"
+                        "api_key": []
                     }
                 ]
             }
@@ -1044,16 +1041,20 @@
         }
     },
     "securityDefinitions": {
-        "oauth-token": {
-            "type": "string",
-            "default": "kadjkjdakjadlkjadk",
-            "description": "OmnyPay uses OAuth 2.0 to secure access to the cloud. OAuth2 is a protocol that lets external apps request authorization to private details in a user’s GitHub account without getting their password. This is preferred over Basic Authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.\n* All developers need to register their application before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared. You may create a personal access token for your own use or implement the web flow below to allow other users to authorize your application.\n* OmnyPay OAuth implementation supports the standard authorization code grant type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for a token. (The implicit grant type is not supported.) in: header"
+        "clientstore_auth": {
+            "type": "oauth2",
+            "description": "OmnyPay uses OAuth 2.0 to secure access to the cloud. OAuth2 is a protocol that lets external apps request authorization to private details in a user’s GitHub account without getting their password. This is preferred over Basic Authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.\n* All developers need to register their application before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared. You may create a personal access token for your own use or implement the web flow below to allow other users to authorize your application.\n* OmnyPay OAuth implementation supports the standard authorization code grant type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for a token. (The implicit grant type is not supported.)",
+            "authorizationUrl": "https://OmnyPay.net/login/oauth/authorize",
+            "flow": "implicit",
+            "scopes": {
+                "write:transactions": "transact using your account",
+                "read:transactions": "read information about account"
+            }
         },
-        "api-key": {
+        "api_key": {
             "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
-            "default": "1upqbzm8zgi80rwuc9n34vsofsis3vs-",
-            "type": "string",
-            "name": "api-key",
+            "type": "apiKey",
+            "name": "api_key",
             "in": "header"
         },
         "omnypay_auth": {
@@ -1106,6 +1107,15 @@
                 "MUserid"
             ],
             "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
                 "emailId": {
                     "type": "string",
                     "description": "User email address"
@@ -1113,10 +1123,6 @@
                 "phoneNumber": {
                     "type": "string",
                     "description": "Phone number beginning with area code"
-                },
-                "imeiNo": {
-                    "type": "string",
-                    "description": "IMEI Number"
                 },
                 "MUserid": {
                     "type": "string",
@@ -1676,6 +1682,10 @@
                     "type": "integer",
                     "description": "0 for charge card, 1 for type of acct. MC/Visa/ 2 for Gift card"
                 },
+                "accNickName": {
+                    "type": "string",
+                    "description": "ex:\"Citi MASTERCARD\","
+                },
                 "acctHolderName": {
                     "type": "string",
                     "description": "Name of the card holder"
@@ -1707,10 +1717,6 @@
                 "emailId": {
                     "type": "string",
                     "description": "email address of User"
-                },
-                "imeiNo": {
-                    "type": "string",
-                    "description": "imei number of User"
                 }
             },
             "xml": {
@@ -1777,26 +1783,16 @@
             }
         },
         "appCRef": {
-            "required": [
-                "tokens",
-                "tokenExpDate",
-                "accountId",
-                "udk",
-                "isFirstCard",
-                "message",
-                "code",
-                "type"
-            ],
             "properties": {
                 "tokenExpDate": {
                     "type": "string",
                     "description": "expiration date of the token in token array"
                 },
-                "accountId": {
+                "accNickName": {
                     "type": "string",
-                    "description": "id of the card or bank acct"
+                    "description": "nickname of the card or bank acct"
                 },
-                "tokens": {
+                "token": {
                     "type": "array",
                     "description": "The tokens associated",
                     "$ref": "#/definitions/appCardTokens"
@@ -1805,23 +1801,19 @@
                     "type": "string",
                     "description": "the user defined key to encrypt"
                 },
-                "isFirstCard": {
+                "isFirstAcct": {
                     "type": "boolean",
                     "description": "flag to indicate if this is the first card"
                 },
                 "code": {
                     "type": "string"
                 },
-                "type": "string",
-                "message": {
+                "type": {
                     "type": "string"
                 },
-                "accBankRoute": {
-                    "type": "string",
-                    "description": "If account is a bank then this is the bank route"
-                },
-                "accNo": null,
-                "description": "Chris to confirm"
+                "message": {
+                    "type": "string"
+                }
             },
             "xml": {
                 "name": "CRefResponse"
@@ -1843,17 +1835,17 @@
         },
         "appPOSInfo": {
             "properties": {
-                "posId": {
+                "POSId": {
                     "type": "string",
-                    "description": "The POS ID is of the format unique POS string+StoreId+Location+Lat+long+checksum or the IP address/Page Id(\"127.0.0.1;7204889ADA49DD30520E3B8766D1F980fftQ3\") from QR Code scanned"
+                    "description": "The POS ID (ex:4554) or the IP address/Page Id(\"127.0.0.1;7204889ADA49DD30520E3B8766D1F980fftQ3\") from QR Code scanned"
                 },
-                "phoneNumber": {
-                    "type": "number",
-                    "description": "Phone Number of User"
-                },
-                "emailId": {
+                "StoreId": {
                     "type": "string",
-                    "description": "email address of User"
+                    "description": "The store Id"
+                },
+                "CheckSum": {
+                    "type": "string",
+                    "description": "Unique checksum"
                 }
             },
             "xml": {
