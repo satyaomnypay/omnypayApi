@@ -307,6 +307,14 @@
                         "type": "string"
                     },
                     {
+                        "in": "header",
+			"default":"1212121",
+                        "name": "oauth-token",
+                        "description": "oauth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "in": "body",
                         "name": "body",
                         "description": "User Info required for authentication",
