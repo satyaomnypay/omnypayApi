@@ -268,7 +268,8 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key":"1upqbzm8zgi80rwuc9n34vsofsis3vs-",
+			"oauth-token":"123456789dfregg" 
                     }
                 ]
             }
@@ -313,7 +314,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -361,7 +362,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -410,7 +411,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -453,7 +454,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -505,7 +506,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "omnypay_auth": []
@@ -541,7 +542,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -593,7 +594,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             },
@@ -640,7 +641,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -691,7 +692,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     },
                     {
                         "clientstore_auth": []
@@ -776,7 +777,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "api-key": []
                     }
                 ]
             }
@@ -1041,20 +1042,16 @@
         }
     },
     "securityDefinitions": {
-        "clientstore_auth": {
-            "type": "oauth2",
+        "oauth-token": {
+            "type": "string",
+ 	    "default": "kddksajkaja",
             "description": "OmnyPay uses OAuth 2.0 to secure access to the cloud. OAuth2 is a protocol that lets external apps request authorization to private details in a user’s GitHub account without getting their password. This is preferred over Basic Authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.\n* All developers need to register their application before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared. You may create a personal access token for your own use or implement the web flow below to allow other users to authorize your application.\n* OmnyPay OAuth implementation supports the standard authorization code grant type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for a token. (The implicit grant type is not supported.)",
-            "authorizationUrl": "https://OmnyPay.net/login/oauth/authorize",
-            "flow": "implicit",
-            "scopes": {
-                "write:transactions": "transact using your account",
-                "read:transactions": "read information about account"
-            }
         },
-        "api_key": {
+        "api-key": {
             "description": "API Key provided to the developer at the time of registration on the OmnyPay developer portal. ",
-            "type": "apiKey",
-            "name": "api_key",
+ 	    "default": "1upqbzm8zgi80rwuc9n34vsofsis3vs-",
+            "type": "string",
+            "name": "api-key",
             "in": "header"
         },
         "omnypay_auth": {
